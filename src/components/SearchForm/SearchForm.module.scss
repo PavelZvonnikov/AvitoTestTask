@@ -1,0 +1,79 @@
+@import '../../css/base.scss';
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  font-size: 13px;
+  color: $colorBlack;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.headerMobile {
+  font-size: 16px;
+}
+
+.underline {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 0 solid transparent;
+  border-width: 0 0 2px;
+  transform: scaleX(0.6) scaleY(0);
+  transform-origin: center bottom;
+  transition: all 150ms linear;
+  pointer-events: none;
+}
+
+.textarea {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: -3px;
+  padding: 14px;
+  font-size: 13px;
+  line-height: 20px;
+  border: 1px solid $colorLightGray;
+  transition: border-color 150ms linear;
+  box-sizing: border-box;
+  resize: vertical;
+
+  &:hover {
+    border: 1px solid $colorGray;
+  }
+
+  &::placeholder {
+    color: $colorGray;
+    transition: color 0.2s;
+  }
+
+  &:disabled {
+    color: $colorLightGray;
+    background-color: transparent;
+  }
+
+  &:disabled::placeholder {
+    color: $colorLightGray;
+  }
+
+  &:focus {
+    border-color: $colorLightGray;
+    outline: none;
+  }
+
+  &:focus + .underline {
+    border-color: $colorBlue;
+    transform: none;
+  }
+
+  &:focus::placeholder {
+    color: $colorLightGray;
+  }
+}
+

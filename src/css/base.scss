@@ -1,0 +1,16 @@
+$colorBlack: #262626;
+$colorBlue: #315efb;
+$colorTransparentBlue: #eaefff;
+$colorGray: #b0b4c2;
+$colorLightGray: #dcdfe7;
+$colorWhite: #fff;
+
+@mixin resetBtn {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
+  cursor: pointer;
+}
