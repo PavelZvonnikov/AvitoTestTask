@@ -15,14 +15,14 @@ const SearchForm = ({
 
   return (
     <div className={s.wrapper}>
-      <textarea
-        rows={1}
+      <input
+        type='text'
         value={value}
-        className={s.textarea}
+        className={s.input}
         onChange={onChangeLocal}
         placeholder='Search'
       />
-      <div className={s.underline} />
+      <div className={s.inputUnderline} />
     </div>
   );
 };

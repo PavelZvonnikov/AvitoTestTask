@@ -7,25 +7,23 @@ import Pagination from '../Pagination/Pagination.jsx';
 
 const SearchPage = ({
   inputValue,
-  onChange,
-  handleClick,
-  topRepos,
+  onChangeValue,
   reposList,
   currentPage,
-  changePage
+  changePage,
+  pagesCount
 }) => {
 
   return (
     <div className={s.startPage}>
-      <div className={s.searchWrapper}>
-        <SearchForm value={inputValue} onChange={onChange} />
-        <button type='button' onClick={() => { handleClick(inputValue) }} className={s.searchButton}>
-          Search
-        </button>
+      <div className={s.main}>
+        <div className={s.searchWrapper}>
+          <SearchForm value={inputValue} onChange={onChangeValue} />
+        </div>
+        <RepositoriesList reposList={reposList} />
       </div>
-      <RepositoriesList topRepos={topRepos} reposList={reposList} />
-      <Pagination value={currentPage} onChange={changePage} />
-    </div>
+      <Pagination value={currentPage} onChange={changePage} end={pagesCount} />
+    </div >
   )
 }
 

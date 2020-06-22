@@ -40,10 +40,10 @@
 .root {
   display: inline-flex;
   justify-content: center;
-  font-family: var(--roboto);
-  font-size: 13px;
-  height: 35px;
   width: 100%;
+  height: 35px;
+  margin-bottom: 15px;
+  font-size: 13px;
 
   &:hover .prevArrow,
   &:hover .nextArrow {

@@ -1,28 +1,21 @@
 import React, {
   useCallback,
   useMemo,
-  useEffect,
 } from 'react';
 import cn from 'classnames';
-
-import IconArrow from '../../arrow.svg';
-
+import { ReactComponent as IconArrow } from '../../img/arrow.svg'
 import s from './Pagination.module.scss';
 
 const Pagination = ({
   onChange,
   value,
   start = 1,
-  end = 10,
+  end,
 }) => {
   const array = useMemo(() => (new Array(end + 1 - start)).fill(0).map((el, index) => start + index),
     [start, end]);
 
   const isInvalid = start >= end;
-
-  useEffect(() => {
-    if (isInvalid) throw new Error('start should be more than the end');
-  }, [isInvalid]);
 
   const onClickNext = useCallback((event) => {
     if (value < end) {
@@ -47,7 +40,7 @@ const Pagination = ({
         disabled={value === 1}
         onClick={onClickPrev}
       >
-        <img src={IconArrow} className={s.icon} alt='<' />
+        <IconArrow className={s.icon} />
       </button>
       {array.map((pageNumber, index) => (
         <React.Fragment key={pageNumber}>
@@ -113,7 +106,7 @@ const Pagination = ({
         disabled={value === end}
         onClick={onClickNext}
       >
-        <img src={IconArrow} className={s.icon} alt='>' />
+        <IconArrow className={s.icon} />
       </button>
     </div>
   );

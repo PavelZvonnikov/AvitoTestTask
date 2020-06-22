@@ -1,56 +1,72 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import './App.scss';
-
 import SearchPage from '../SearchPage/SearchPage.jsx';
+import RepositoryPage from '../RepositoryPage/RepositoryPage.jsx'
 import useFetch from '../../customHooks/useFetch.jsx';
+import { BrowserRouter, Route } from "react-router-dom";
+
+const DEFAULT_QUERY = 'stars:>10000';
 
 function App() {
-  const defaultQuery = 'stars:>10000';
   const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [topRepos, getTopRepos] = useFetch();
-  const [reposList, getReposList] = useFetch();
+  const [reposList, getReposList, pagesCount] = useFetch();
 
-  const onChange = useCallback(newValue => {
+  const onChangeValue = useCallback(newValue => {
+    localStorage.setItem('currentPage', 1);
+    setCurrentPage(1);
+    localStorage.setItem('inputValue', newValue);
     setInputValue(newValue);
   }, []);
 
-  const handleClick = useCallback(() => {
-    if (!inputValue.length) return;
-    getReposList(inputValue, 1);
-    setCurrentPage(1);
-  }, [currentPage, getReposList, inputValue]);
-
-  useEffect(() => {
-    getTopRepos(defaultQuery, currentPage)
+  const onChangePage = useCallback(newValue => {
+    localStorage.setItem('currentPage', newValue);
+    setCurrentPage(newValue);
   }, []);
 
   useEffect(() => {
-    if (inputValue.length) return;
-    getTopRepos(defaultQuery, currentPage)
-  }, [currentPage]);
+    const storageValue = localStorage.getItem('inputValue');
+    const storagePage = localStorage.getItem('currentPage');
+
+    if (!storageValue || !storageValue.length) {
+      setCurrentPage(1);
+      getReposList(DEFAULT_QUERY, currentPage)
+    } else {
+      setInputValue(storageValue);
+      setCurrentPage(Number(storagePage));
+      getReposList(inputValue, currentPage);
+    }
+  }, []);
 
   useEffect(() => {
-    if (reposList.length) {
+    if (inputValue.length) {
       getReposList(inputValue, currentPage)
+    } else {
+      getReposList(DEFAULT_QUERY, currentPage)
     }
-  }, [getReposList, currentPage]);
+  }, [currentPage, inputValue]);
 
-  console.log(topRepos, 'top');
   console.log(reposList, 'list');
 
   return (
-    <div className="App">
-      <SearchPage
-        inputValue={inputValue}
-        currentPage={currentPage}
-        changePage={setCurrentPage}
-        onChange={onChange}
-        handleClick={handleClick}
-        topRepos={topRepos}
-        reposList={reposList}
-      />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Route
+          exact
+          path='/'
+          render={props => (
+            <SearchPage
+              inputValue={inputValue}
+              currentPage={currentPage}
+              changePage={onChangePage}
+              onChangeValue={onChangeValue}
+              reposList={reposList}
+              pagesCount={pagesCount}
+              {...props}
+            />
+          )} />
+        <Route path='/:name' component={RepositoryPage} />
+      </div>
+    </BrowserRouter>
   );
 }
 

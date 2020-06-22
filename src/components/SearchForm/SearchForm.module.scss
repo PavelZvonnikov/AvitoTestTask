@@ -2,78 +2,57 @@
 
 .wrapper {
   position: relative;
-  width: 100%;
-  max-width: 420px;
+  font-family: 'Segoe UI' sans-serif;
   font-size: 13px;
   color: $colorBlack;
-  box-sizing: border-box;
 }
 
-.header {
-  margin-bottom: 20px;
-}
-
-.headerMobile {
-  font-size: 16px;
-}
-
-.underline {
+.inputUnderline {
   position: absolute;
   top: 0;
+  left: 0;
   right: 0;
   bottom: 0;
-  left: 0;
   border: 0 solid transparent;
   border-width: 0 0 2px;
+  pointer-events: none;
   transform: scaleX(0.6) scaleY(0);
   transform-origin: center bottom;
   transition: all 150ms linear;
-  pointer-events: none;
 }
 
-.textarea {
-  position: relative;
+.input {
   width: 100%;
-  max-width: 420px;
-  margin-bottom: -3px;
-  padding: 14px;
-  font-size: 13px;
-  line-height: 20px;
+  padding: 9px 14px;
   border: 1px solid $colorLightGray;
-  transition: border-color 150ms linear;
+  border-radius: 1px;
   box-sizing: border-box;
-  resize: vertical;
+  line-height: 25px;
+  transition: border 200ms;
 
   &:hover {
-    border: 1px solid $colorGray;
+    border-color: $colorGray;
   }
 
   &::placeholder {
     color: $colorGray;
-    transition: color 0.2s;
-  }
-
-  &:disabled {
-    color: $colorLightGray;
-    background-color: transparent;
-  }
-
-  &:disabled::placeholder {
-    color: $colorLightGray;
   }
 
   &:focus {
-    border-color: $colorLightGray;
     outline: none;
+    border-color: $colorLightGray;
   }
 
-  &:focus + .underline {
-    border-color: $colorBlue;
+  &:focus + .inputUnderline {
     transform: none;
+    border-color: $colorBlue;
   }
 
   &:focus::placeholder {
     color: $colorLightGray;
+    transition: color 0.2s;
   }
 }
+
+
 
